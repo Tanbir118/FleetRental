@@ -10,6 +10,7 @@
 // Console.WriteLine(c + "&" + d);
 
 var engine = new Engine();
+
 // engine.FuelType = FuelType.Petrol;
 // engine.cc = 2000;
 // engine.HorsePower = 150;
@@ -103,7 +104,7 @@ foreach (Vehicle vehicle in vehicles)
 // Repository<Rental>carrepo = new Repository<Rental>();
 
 // Rental rental = new Rental
-// { 
+// {
 //     Id="12341",
 //     VehicleRegistrationNumber="wb53g1589",
 // };
@@ -111,7 +112,6 @@ foreach (Vehicle vehicle in vehicles)
 // carrepo.Add(rental);
 
 // var res = carrepo.GetAll();
-
 
 // // Repository<Car>CarRepo = new Repository<Car>();
 
@@ -123,7 +123,6 @@ foreach (Vehicle vehicle in vehicles)
 // // );
 
 // // CarRepo.Add(car1);
-
 
 // foreach (var rentalItem in res)
 // {
@@ -145,4 +144,3 @@ foreach (Vehicle vehicle in vehicles)
 
 // Console.WriteLine(van.CalculateRent(2));
 // Console.WriteLine(van.GetDescription());
-
