@@ -17,16 +17,30 @@ public class Truck : Vehicle, IRentable, IMaintainable, IInsurable
         CapacityInTonnes = capacityInTonnes;
     }
 
-    public override Money CalculateRent(int days)
+ public override Money CalculateRent(int days)
+{
+    decimal amount = DailyRate.Amount * days;
+
+    decimal perTonnCost;
+
+    if (CapacityInTonnes <= 10)
     {
-        decimal amount = DailyRate.Amount * days;
-
-        amount = amount + (300 * CapacityInTonnes);
-
-        amount = amount + 1000;
-
-        return new Money { Amount = amount, Currency = DailyRate.Currency };
+        perTonnCost = CapacityInTonnes * 300;
     }
+    else
+    {
+        perTonnCost = (10 * 300) + ((CapacityInTonnes - 10) * 500);
+    }
+
+    amount = amount + perTonnCost;
+
+    if (days < 10)
+    {
+        amount = amount + 1000;
+    }
+
+    return new Money { Amount = amount,Currency = DailyRate.Currency };
+}
 
         public bool IsAvailable
     {
