@@ -20,9 +20,15 @@ public class Motorcycle : Vehicle, IRentable, IMaintainable
     public override Money CalculateRent(int days)
     {
         decimal amount = 0;
+        var count =0;
         for (int i = 0; i < days; i++)
-        {
+        {   
             DateTime currentDate = _startDate.AddDays(i);
+
+            if((i+1)%7==0)
+            {
+                continue;
+            }
 
             decimal dailyAmount = DailyRate.Amount;
 
