@@ -17,32 +17,32 @@ public class Truck : Vehicle, IRentable, IMaintainable, IInsurable
         CapacityInTonnes = capacityInTonnes;
     }
 
- public override Money CalculateRent(int days)
-{
-    decimal amount = DailyRate.Amount * days;
-
-    decimal perTonnCost;
-
-    if (CapacityInTonnes <= 10)
+    public override Money CalculateRent(int days)
     {
-        perTonnCost = CapacityInTonnes * 300;
+        decimal amount = DailyRate.Amount * days;
+
+        decimal perTonnCost;
+
+        if (CapacityInTonnes <= 10)
+        {
+            perTonnCost = CapacityInTonnes * 300;
+        }
+        else
+        {
+            perTonnCost = (10 * 300) + ((CapacityInTonnes - 10) * 500);
+        }
+
+        amount = amount + perTonnCost;
+
+        if (days < 10)
+        {
+            amount = amount + 1000;
+        }
+
+        return new Money { Amount = amount, Currency = DailyRate.Currency };
     }
-    else
-    {
-        perTonnCost = (10 * 300) + ((CapacityInTonnes - 10) * 500);
-    }
 
-    amount = amount + perTonnCost;
-
-    if (days < 10)
-    {
-        amount = amount + 1000;
-    }
-
-    return new Money { Amount = amount,Currency = DailyRate.Currency };
-}
-
-        public bool IsAvailable
+    public bool IsAvailable
     {
         get { return Status == VehicleStatus.Available; }
     }
@@ -61,10 +61,12 @@ public class Truck : Vehicle, IRentable, IMaintainable, IInsurable
     {
         get { return _lastServiceDate; }
     }
-void IMaintainable.ScheduleService(DateTime date)
-{
-    _lastServiceDate = date;
-}
+
+    void IMaintainable.ScheduleService(DateTime date)
+    {
+        _lastServiceDate = date;
+    }
+
     public bool IsServiceDue()
     {
         if (!_lastServiceDate.HasValue)
@@ -75,20 +77,13 @@ void IMaintainable.ScheduleService(DateTime date)
 
     public string PolicyNumber
     {
-        get {return "asd-csc-cs";}
+        get { return "asd-csc-cs"; }
     }
 
-   public Money CalculatePremium()
-{
-    decimal premium = DailyRate.Amount * 0.05m;
-
-    return new Money
+    public Money CalculatePremium()
     {
-        Amount = premium,
-        Currency = DailyRate.Currency
-    };
-}
+        decimal premium = DailyRate.Amount * 0.05m;
 
-
-
+        return new Money { Amount = premium, Currency = DailyRate.Currency };
+    }
 }
