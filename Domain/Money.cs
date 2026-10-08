@@ -49,49 +49,4 @@ public struct Money
     {
         return $"{Amount} {Currency}";
     }
-
-    public static bool operator >(Money a, Money b)
-    {
-        if (a.Currency != b.Currency)
-        {
-            throw new InvalidOperationException("Cannot compare money with different currencies.");
-        }
-
-        return a.Amount > b.Amount;
-    }
-
-    public static bool operator <(Money a, Money b)
-    {
-        if (a.Currency != b.Currency)
-        {
-            throw new InvalidOperationException("Cannot compare money with different currencies.");
-        }
-
-        return a.Amount < b.Amount;
-    }
-
-    public Money[] Split(int parts)
-    {
-        if (parts <= 0)
-        {
-            throw new ArgumentException("Parts must be greater than zero.");
-        }
-
-        decimal perPart = Math.Floor(Amount / parts * 100) / 100;
-        decimal remainder = Amount - (perPart * parts);
-        int extraCount = (int)(remainder * 100);
-        
-        Money[] result = new Money[parts];
-        for (int i = 0; i < parts; i++)
-        {
-            decimal amt = perPart;
-            if (i < extraCount)
-            {
-                amt += 0.01m;
-            }
-            result[i] = new Money { Amount = amt, Currency = Currency };
-        }
-
-        return result;
-    }
 }
