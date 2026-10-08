@@ -21,11 +21,48 @@ public class Motorcycle : Vehicle, IRentable, IMaintainable
     {
         decimal amount = 0;
         var count = 0;
+        DateTime? freeday = null;
         for (int i = 0; i < days; i++)
         {
             DateTime currentDate = _startDate.AddDays(i);
 
+            // if ((i + 1) % 7 == 0)
+            // {
+            //     continue;
+            // }
+
+            // decimal dailyAmount = DailyRate.Amount;
+
+            // if (IsWeekend(currentDate))
+            // {
+            //     dailyAmount = dailyAmount * 1.25m;
+            // }
+
+            // amount = amount + dailyAmount;
+
             if ((i + 1) % 7 == 0)
+            {
+                if (IsWeekend(currentDate))
+                {
+                    //rent lagbe..
+                    //next weekdya find....
+                    //make taht free...
+                    // freeday = currentDate.AddDays(-1);
+                    DateTime nextweekday = currentDate.AddDays(1);
+                    while (IsWeekend(nextweekday))
+                    {
+                        nextweekday = nextweekday.AddDays(1);
+                    }
+
+                    freeday = nextweekday;
+                }
+                else
+                {
+                    //rent lagbe naa its free
+                    continue;
+                }
+            }
+            if (freeday.HasValue && currentDate.Date == freeday.Value.Date)
             {
                 continue;
             }

@@ -60,10 +60,10 @@ var truck = new Truck(
 
 List<Vehicle> vehicles = new List<Vehicle>();
 
-vehicles.Add(car);
-vehicles.Add(electricCar);
+// vehicles.Add(car);
+// vehicles.Add(electricCar);
 vehicles.Add(motorcycle);
-vehicles.Add(truck);
+// vehicles.Add(truck);
 
 foreach (Vehicle vehicle in vehicles)
 {
